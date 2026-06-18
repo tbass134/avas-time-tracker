@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ava's Pokemon Chore Quest</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <p class="eyebrow">Pokemon Chore Quest</p>
+            <h1>Ava</h1>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="App sections">
+          <button class="tab-button is-active" type="button" data-tab="today">Today</button>
+          <button class="tab-button" type="button" data-tab="check">Check</button>
+          <button class="tab-button" type="button" data-tab="chores">Chores</button>
+          <button class="tab-button" type="button" data-tab="rewards">Rewards</button>
+          <button class="tab-button" type="button" data-tab="ledger">Ledger</button>
+        </nav>
+
+        <div class="week-card">
+          <span>Gym week</span>
+          <strong id="weekRange"></strong>
+          <div class="week-bar">
+            <div id="weekProgress"></div>
+          </div>
+        </div>
+      </aside>
+
+      <main>
+        <section class="pokemon-stage" aria-label="Ava's Pokemon team">
+          <div class="stage-copy">
+            <p class="eyebrow">Ava's Pokemon team</p>
+            <h2>Chore quest party</h2>
+          </div>
+          <div class="pokemon-party" aria-hidden="true">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/54.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png" alt="">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="">
+          </div>
+        </section>
+
+        <section class="summary-grid" aria-label="Coin summary">
+          <article class="metric balance-card">
+            <span>Trainer coins</span>
+            <strong id="coinBalance">0</strong>
+            <small id="dollarValue">$0.00 ready</small>
+          </article>
+          <article class="metric">
+            <span>Earned today</span>
+            <strong id="earnedToday">0</strong>
+            <small>coins</small>
+          </article>
+          <article class="metric">
+            <span>Earned this week</span>
+            <strong id="earnedWeek">0</strong>
+            <small>coins</small>
+          </article>
+          <article class="metric penalty-card">
+            <span>Lost this week</span>
+            <strong id="lostWeek">0</strong>
+            <small>coins</small>
+          </article>
+        </section>
+
+        <section class="panel is-visible" id="todayPanel" data-panel="today">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Daily quests</p>
+              <h2>Today's training</h2>
+            </div>
+            <button class="ghost-button" id="resetTodayButton" type="button">Clear today</button>
+          </div>
+          <div class="chore-list" id="todayChores"></div>
+        </section>
+
+        <section class="panel" id="checkPanel" data-panel="check">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Parent review</p>
+              <h2>Trainer check</h2>
+            </div>
+            <span class="status-pill" id="parentLockStatus">Locked</span>
+          </div>
+          <form class="pin-form" id="parentPinForm">
+            <label>
+              <span>Parent PIN</span>
+              <input id="parentPin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN">
+            </label>
+            <button class="primary-button" type="submit">Unlock</button>
+          </form>
+          <div class="approval-list" id="pendingApprovals"></div>
+        </section>
+
+        <section class="panel" id="choresPanel" data-panel="chores">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Choose from the roster</p>
+              <h2>Quest catalog</h2>
+            </div>
+          </div>
+          <form class="add-form" id="addChoreForm">
+            <label>
+              <span>Quest</span>
+              <input id="newChoreName" name="name" type="text" maxlength="44" placeholder="Put laundry away">
+            </label>
+            <label>
+              <span>Daily coins</span>
+              <input id="newChoreCoins" name="coins" type="number" min="1" max="100" value="5">
+            </label>
+            <label>
+              <span>Weekly goal</span>
+              <input id="newChoreGoal" name="goal" type="number" min="1" max="7" value="5">
+            </label>
+            <label>
+              <span>Weekly bonus</span>
+              <input id="newChoreBonus" name="bonus" type="number" min="0" max="200" value="10">
+            </label>
+            <button class="primary-button" type="submit">Add chore</button>
+          </form>
+          <div class="catalog-grid" id="choreCatalog"></div>
+        </section>
+
+        <section class="panel" id="rewardsPanel" data-panel="rewards">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">PokeMart counter</p>
+              <h2>Rewards and deductions</h2>
+            </div>
+          </div>
+          <div class="reward-layout">
+            <form class="reward-box" id="penaltyForm">
+              <h3>Lose trainer coins</h3>
+              <label>
+                <span>Reason</span>
+                <select id="penaltyReason">
+                  <option value="Lied">Lied</option>
+                  <option value="Misbehaved">Misbehaved</option>
+                  <option value="Did not listen">Did not listen</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label>
+                <span>Coins</span>
+                <input id="penaltyAmount" type="number" min="1" max="500" value="5">
+              </label>
+              <button class="danger-button" type="submit">Subtract coins</button>
+            </form>
+
+            <form class="reward-box" id="cashOutForm">
+              <h3>Convert trainer coins</h3>
+              <label>
+                <span>Coins per dollar</span>
+                <input id="coinsPerDollar" type="number" min="1" max="500" value="10">
+              </label>
+              <div class="cashout-preview">
+                <span>Available payout</span>
+                <strong id="cashOutValue">$0.00</strong>
+              </div>
+              <button class="primary-button" type="submit">Cash out week</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="panel" id="ledgerPanel" data-panel="ledger">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">History</p>
+              <h2>Coin ledger</h2>
+            </div>
+            <button class="ghost-button" id="resetAllButton" type="button">Reset app</button>
+          </div>
+          <div class="ledger" id="ledger"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="todayChoreTemplate">
+      <article class="chore-row">
+        <div>
+          <h3></h3>
+          <p></p>
+        </div>
+        <button type="button"></button>
+      </article>
+    </template>
+
+    <template id="catalogTemplate">
+      <article class="catalog-card">
+        <div class="card-topline">
+          <h3></h3>
+          <label class="switch">
+            <input type="checkbox">
+            <span></span>
+          </label>
+        </div>
+        <p></p>
+        <div class="card-actions">
+          <button class="ghost-button" type="button" data-action="edit">Edit</button>
+          <button class="ghost-button" type="button" data-action="delete">Delete</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
